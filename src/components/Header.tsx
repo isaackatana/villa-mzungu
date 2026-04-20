@@ -10,10 +10,9 @@ export default function Header() {
 
   const navItems = [
     { to: '/', label: t('nav.home') },
-    { to: '/villa-details', label: t('nav.villa') },
     { to: '/gallery', label: t('nav.gallery') },
     { to: '/booking', label: t('nav.booking') },
-    { to: '/about-diani', label: t('nav.about') },
+    { to: '/about', label: t('nav.about') },
     { to: '/contact', label: t('nav.contact') },
   ];
 
@@ -55,37 +54,71 @@ export default function Header() {
           onClick={() => setMenuOpen((prev) => !prev)}
           className="rounded-lg p-2 text-white md:hidden"
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {menuOpen && (
-        <div className="border-t border-white/10 bg-slate-950 md:hidden">
-          <div className="space-y-4 px-4 py-4">
-            <LanguageSwitcher />
-            <div className="flex flex-col gap-3">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-2 py-2 text-sm text-white/90 transition hover:bg-white/5"
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </div>
-            <Link
-              to="/booking"
-              onClick={() => setMenuOpen(false)}
-              className="block rounded-full bg-teal-400 px-4 py-3 text-center text-sm font-semibold text-slate-950"
-            >
-              {t('hero.ctaPrimary')}
-            </Link>
-          </div>
+      <div
+        id="mobile-nav"
+        className={`fixed inset-y-0 right-0 z-50 w-80 max-w-[85vw] transform border-l border-white/10 bg-slate-950 p-6 transition-transform duration-300 md:hidden ${
+          menuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-bold">Menu</span>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(false)}
+            className="rounded-lg p-2 text-white"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
         </div>
-      )}
+
+        <div className="mt-6">
+          <LanguageSwitcher />
+        </div>
+
+        <nav className="mt-8 flex flex-col gap-3">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `rounded-xl px-3 py-3 text-sm transition ${
+                  isActive
+                    ? 'bg-white/10 text-teal-300'
+                    : 'text-white/90 hover:bg-white/5'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <Link
+          to="/booking"
+          onClick={() => setMenuOpen(false)}
+          className="mt-8 block rounded-full bg-teal-400 px-4 py-3 text-center text-sm font-semibold text-slate-950"
+        >
+          {t('hero.ctaPrimary')}
+        </Link>
+      </div>
+
+      {menuOpen ? (
+        <button
+          type="button"
+          aria-label="Close overlay"
+          onClick={() => setMenuOpen(false)}
+          className="fixed inset-0 z-40 bg-slate-950/50 md:hidden"
+        />
+      ) : null}
     </header>
   );
 }
