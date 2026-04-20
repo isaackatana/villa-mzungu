@@ -20,9 +20,10 @@ export default function Footer() {
           </h4>
           <div className="mt-3 flex flex-col gap-2 text-sm text-slate-600">
             <Link to="/">Home</Link>
-            <Link to="/villa-details">Villa Details</Link>
             <Link to="/gallery">Gallery</Link>
             <Link to="/booking">Booking</Link>
+            <Link to="/about">About</Link>
+            <Link to="/contact">Contact</Link>
           </div>
         </div>
 

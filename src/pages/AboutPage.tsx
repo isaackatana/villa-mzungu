@@ -4,9 +4,9 @@ export default function AboutPage() {
   return (
     <>
       <Seo
-        title="About Diani Beach | Villa Mzungu"
+        title="About | Villa Mzungu"
         description="Learn more about Diani Beach, Kwale County, and the coastal experience surrounding Villa Mzungu."
-        canonicalPath="/about-diani"
+        canonicalPath="/about"
         keywords="About Diani Beach, Kwale County tourism, Kenya coast holiday"
       />
 
